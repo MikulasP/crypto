@@ -1,5 +1,5 @@
 # crypto
-Simple implementation of cryptograhy algorythms.
+Simple implementation of cryptography algorythms.
 
 Available now:
 - C++ AES (Beta)
