@@ -1,8 +1,7 @@
 # crypto
 Simple implementation of cryptography algorythms.
 
-Available now:
-- C++ AES (Beta)
-- Python AES
-
-Updates coming soon...
+Now available libraries:
+- C AES ECB-128 (w. PKCS#7)
+- C++ AES ECB-128 (Beta)
+- Python AES ECB-128 (w. PKCS#7)
