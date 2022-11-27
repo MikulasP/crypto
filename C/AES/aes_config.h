@@ -1,7 +1,5 @@
 #include <stdint.h>
 
-//#define NOPRINT
-
 #define GF_MULT_OVERFLOW	0x100
 
 const static uint8_t rcon_table[] = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1B, 0x36};
@@ -134,8 +132,8 @@ const static uint8_t mul_14[] = {
 	0xd7, 0xd9, 0xcb, 0xc5, 0xef, 0xe1, 0xf3, 0xfd, 0xa7, 0xa9, 0xbb, 0xb5, 0x9f, 0x91, 0x83, 0x8d
 };
 
-	uint8_t keyLen = 16;				//Length of the key
+	uint8_t keyLen = 16;					//Length of the key
 
-	uint8_t	cryptoKex[11][16];			//Different key stages
+	uint8_t	cryptoKex[11][16] = {NULL};		//Different key stages
 
-	uint8_t procArray[16];				//Array to store a single block while it's being processed
+	uint8_t procArray[16] = {0};			//Array to store a single block while it's being processed
