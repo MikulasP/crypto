@@ -320,24 +320,6 @@ void MixColumnsInv(uint8_t* block) {
 
 //
 uint8_t GFMult(uint8_t multiplier, uint16_t multiplicant) {
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-	/*
-	 
-		Note:
-	 
-		It says uint16_t multiplicant can overflow when returned, but it won't. It's uint16_t and uint8_t by design.
-		Multiplicant can be momentarily larger (because of the multiplication) than uint8_t can store, but according
-		to GF 2^8 multiplication rules if that happens multiplicant will be reduced b4 function returns. 
-
-		It's a warning I know... But not a bad one
-
-		No values bigger than a byte (since it operates on a byte level) will be passed by my code to this. And if you
-		pass higher values, that's on you. And it will still be cast as a uint8_t.
-
-		RTFM
-
-	*/
-#endif /* DOXYGEN_SHOULD_SKIP_THIS */
 	switch (multiplier)
 	{
 	case 1:
@@ -387,11 +369,18 @@ void ExpandKey(uint8_t* srcKey, uint8_t* dstKey, uint8_t keyNum) {
 //
 void CalculateKeys(char* key) {
 
-	if (strlen(key) != 0x10)	return;		//Just let this go for now pls... °~°
+	char keyArr[16] = { 0 };
+
+	char i;
+	for (i = 0; i < 16 && key[i] != '\0'; i++)
+		keyArr[i] = key[i];
+
+	for (; i < 16; i++)
+		keyArr[i] = 0;
 
 	for (uint8_t i = 0; i < 4; i++)
 		for (uint8_t j = 0; j < 4; j++)
-			cryptoKex[0][j * 4 + i] = key[i * 4 + j];
+			cryptoKex[0][j * 4 + i] = keyArr[i * 4 + j];
 	for (uint8_t i = 1; i < 11; i++)
 		ExpandKey(cryptoKex[i - 1], cryptoKex[i], i - 1);
 }
@@ -403,19 +392,4 @@ size_t GetFileSizeBytes(FILE* file) {
 	size_t fileSize = ftell(file);
 	fseek(file, filePointerPos, SEEK_SET);
 	return fileSize;
-}
-
-//
-void SetKeyString(char* str) {
-
-	char key[16] = {0};
-
-	char i;
-	for (i = 0; i < 16 && str[i] != '\0'; i++)
-		key[i] = str[i];	
-		
-	for (; i < 16; i++)
-		key[i] = 0;
-
-	CalculateKeys(key);
 }
