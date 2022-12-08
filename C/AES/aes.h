@@ -34,7 +34,9 @@ SOFTWARE.
 #include <stdint.h>
 #include <stdlib.h>
 
-#define AES_MAX_BUFFER_SIZE    8 * ( 1000 /* 1 kB */ )    //Max buffer size on heap in megabytes -!!- MUST BE MULTIPLE OF 16 bytes -!!-
+#include "debugmalloc.h"	// Caused more pain than humans can imagine...
+
+#define AES_MAX_BUFFER_SIZE    256 * ( 1000000 /* 1 MB */ )    //Max buffer size on heap in megabytes -!!- MUST BE MULTIPLE OF 16 bytes -!!-
 /*
 * 
 *	Note: This size only restricts single buffers, NOT the whole program buffer size.
@@ -254,11 +256,4 @@ void CalculateKeys(char* key);
 *	@returns <size_t>			The input file's size in byzes
 */
 size_t GetFileSizeBytes(FILE* file);
-
-/**
-*	Set key from a string given by a user (most likely)
-* 
-*	@param <char*>str				String containing the key
-*/
-void SetKeyString(char* str);
 
