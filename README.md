@@ -1,5 +1,5 @@
 # crypto
-Simple implementation of cryptography algorythms.
+Simple implementation of cryptography algorithms.
 
 Now available libraries:
 - C AES ECB-128 (w. PKCS#7)
